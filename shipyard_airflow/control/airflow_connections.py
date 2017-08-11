@@ -14,7 +14,7 @@
 import falcon
 import json
 import requests
-import urllib.parse
+from urllib.parse import urlunsplit
 
 from .base import BaseResource
 
@@ -36,7 +36,7 @@ class AirflowAddConnectionResource(BaseResource):
                 # Concatenate to form the connection URL
                 netloc = ''.join([host, ':', port])
                 url = (protocol, netloc, '','','')
-                conn_uri = urlparse.urlunsplit(url)
+                conn_uri = urlunsplit(url)
 
                 # Form the request URL towards Airflow
                 req_url = '{}/admin/rest_api/api?api=connections&add=true&conn_id={}&conn_uri={}'.format(web_server_url, conn_id, conn_uri)
